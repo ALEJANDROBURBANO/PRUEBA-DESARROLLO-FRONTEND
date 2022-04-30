@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressCard } from '@fortawesome/free-solid-svg-icons';
 
 export default function Modal(props) {
+    
     useEffect(() => {
         var myModalEl = document.getElementById("exampleModal");
         myModalEl.addEventListener("hide.bs.modal", function (event) {
@@ -11,6 +12,7 @@ export default function Modal(props) {
         });
     }, []);
     return (
+        // modal o ventana emergente
         <div
             className="modal fade"
             id="exampleModal"
@@ -30,6 +32,7 @@ export default function Modal(props) {
                             aria-label="Close"
                         ></button>
                     </div>
+                    {/* pega el formulario en el body del modal */}
                     <div className="modal-body">{props.children}</div>
                     
                 </div>

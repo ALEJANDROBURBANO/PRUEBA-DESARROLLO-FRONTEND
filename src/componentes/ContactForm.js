@@ -5,6 +5,7 @@ import { Api } from "../Api";
 
 export default function ContactForm(props) {
 
+    // estilos para el formulario
     const formStyle = {
         textAlign: 'left',
         paddingLeft: '40px',
@@ -18,6 +19,7 @@ export default function ContactForm(props) {
 
     const [message, setMessage] = useState(false);
 
+    // funcion de actualización de datos 
     const handleChange = (el) => {
         const copia = {
             ...data,
@@ -27,6 +29,7 @@ export default function ContactForm(props) {
         setData(copia);
     };
 
+    // función de guardado de datos en local storage 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -65,7 +68,9 @@ export default function ContactForm(props) {
     
     return (
         <>
+            {/* formulario de registro y de actualización de datos  */}
             <form onSubmit={handleSubmit} id="form_contact" style={formStyle}>
+                {/* si el index no trae valores, entonces es un formulario de registro, de lo contrario se utilizara para actualización de datos  */}
                 <h2> {props.index !== undefined ? "Actualizar" : "Registrar"} contacto</h2>
                 <div style={{marginBottom:'30px'}}>Todos los datos identificados con <label className='text-danger'>*</label> son de caracter obligatorio.</div>
                 <div className="mb-3">

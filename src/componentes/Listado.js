@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Api } from "../Api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faSearch, faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons"; // <-- importacion de iconos
+import { faPen, faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons"; // <-- importacion de iconos
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 export default function Listado({ setIndex, reFetch, search = "" }) {
     const [localData, setLocalData] = useState([]);
     const [data, setData] = useState(undefined);
+
 
     const fetchData = async () => {
         const response = await Api.get();
@@ -14,11 +15,13 @@ export default function Listado({ setIndex, reFetch, search = "" }) {
         setLocalData(response);
     };
 
+    // elimina el contacto del local storage 
     const handleDelete = async (id) => {
         const response = await Api.delete(id);
         reFetch();
     };
 
+    // función de busqueda o filtros
     const filter = (string) => {
         var string = string.toUpperCase();
         const filtered = [];
@@ -32,7 +35,7 @@ export default function Listado({ setIndex, reFetch, search = "" }) {
 
         setData(filtered);
     };
-
+    // función para calcular la edad con la fecha de nacimiento
     const edad = (fecha) => {
         var hoy = new Date();
         var cumpleanos = new Date(fecha);
@@ -54,16 +57,16 @@ export default function Listado({ setIndex, reFetch, search = "" }) {
         fetchData();
     }, []);
 
+    
     if (!data) {
-        return "Sin datos por el momento";
+        return "Sin datos por el momento"; //este valor lo carga si el local storage no tiene datos registrados
     }
 
     return (
         <>
    
-       
-        <div className="table-responsive col-12 " style={{marginTop:'120px'}}>
-            <table className="table table-hover" style={{ width: "100%" }}>
+        <div className="table-responsive col-12 " style={{marginTop:'120px'}}> {/* contenedor responsive de la tabla  */}
+            <table className="table table-hover" style={{ width: "100%" }}> {/* tabla de contactos*/}
                 <thead>
                     <tr>
                         <th key={1}>NOMBRE</th>
@@ -150,7 +153,7 @@ export default function Listado({ setIndex, reFetch, search = "" }) {
                         );
                     })}
                 </tbody>
-            </table>
+            </table> {/* finaliza tabla de contactos*/}
         </div>
             
         </>
