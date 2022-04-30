@@ -76,6 +76,7 @@ export default function ContactForm(props) {
                         className="form-control"
                         id="nombre"
                         placeholder="Nombre"
+                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -89,11 +90,12 @@ export default function ContactForm(props) {
                         className="form-control"
                         id="telefono"
                         placeholder="312 456 7890"
+                        required
                     />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="fecha" className="form-label">
-                    <FontAwesomeIcon icon={faCalendar} /> <b> Fecha de nacimiento <span className="text-danger">*</span></b>
+                    <FontAwesomeIcon icon={faCalendar} /> <b> Fecha de nacimiento <span className="text-danger" >*</span></b>
                     </label>
                     <input
                         value={data.fecha}
@@ -102,6 +104,8 @@ export default function ContactForm(props) {
                         className="form-control"
                         id="fecha"
                         placeholder="dd/mm/yyyy"
+                        
+                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -115,6 +119,7 @@ export default function ContactForm(props) {
                         className="form-control"
                         id="direccion"
                         placeholder="Calle 1 # 2-3"
+                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -128,6 +133,7 @@ export default function ContactForm(props) {
                         className="form-control"
                         id="correo"
                         placeholder="usuario@mail.com"
+                        required
                     />
                 </div>
                 {loading ? (

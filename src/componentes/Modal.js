@@ -21,7 +21,7 @@ export default function Modal(props) {
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="exampleModalLabel">
-                        <FontAwesomeIcon icon={faAddressCard} />  Datos de contacto
+                        <FontAwesomeIcon icon={faAddressCard} />  Datos del contacto
                         </h5>
                         <button
                             type="button"
