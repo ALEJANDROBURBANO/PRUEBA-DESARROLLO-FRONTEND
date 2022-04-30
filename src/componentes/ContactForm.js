@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faCity, faEnvelope, faPhone, faCalendar, faAddressCard } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faCity, faEnvelope, faPhone, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { Api } from "../Api";
 
 export default function ContactForm(props) {
@@ -15,6 +15,8 @@ export default function ContactForm(props) {
     const [data, setData] = useState(undefined);
 
     const [loading, setLoading] = useState(false);
+
+    const [message, setMessage] = useState(false);
 
     const handleChange = (el) => {
         const copia = {
@@ -41,6 +43,7 @@ export default function ContactForm(props) {
             direccion: "",
             correo: "",
         });
+        setMessage('Tarea realizada con exito, cierre el formulario para visualizar la acción.');
         return false;
     };
 
@@ -59,7 +62,7 @@ export default function ContactForm(props) {
     if (!data) {
         return "Cargando...";
     }
-
+    
     return (
         <>
             <form onSubmit={handleSubmit} id="form_contact" style={formStyle}>
@@ -90,6 +93,7 @@ export default function ContactForm(props) {
                         className="form-control"
                         id="telefono"
                         placeholder="312 456 7890"
+                        maxlength="10"
                         required
                     />
                 </div>
@@ -135,6 +139,9 @@ export default function ContactForm(props) {
                         placeholder="usuario@mail.com"
                         required
                     />
+                </div>
+                <div>
+                    <p className="text-success" id="textSavedContact" >{message}</p>
                 </div>
                 {loading ? (
                     <div className="spinner-border" role="status">

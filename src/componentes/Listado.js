@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Api } from "../Api";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faSearch } from '@fortawesome/free-solid-svg-icons'; // <-- importacion de iconos
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-export default function Listado({ setIndex, reFetch }) {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faSearch, faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons"; // <-- importacion de iconos
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+export default function Listado({ setIndex, reFetch, search = "" }) {
+    const [localData, setLocalData] = useState([]);
     const [data, setData] = useState(undefined);
 
     const fetchData = async () => {
         const response = await Api.get();
         console.log(response);
         setData(response);
+        setLocalData(response);
     };
 
     const handleDelete = async (id) => {
@@ -17,29 +19,19 @@ export default function Listado({ setIndex, reFetch }) {
         reFetch();
     };
 
-    // const filter = () => {
-    //     var input, filter, table, tr, td, i, j, visible;
-    //     input = document.getElementById("myInput");
-    //     filter = input.value.toUpperCase();
-    //     table = document.getElementById("myTable");
-    //     tr = table.getElementsByTagName("tr");
+    const filter = (string) => {
+        var string = string.toUpperCase();
+        const filtered = [];
 
-    //     for (i = 0; i < tr.length; i++) {
-    //         visible = false;
-    //         /* Obtenemos todas las celdas de la fila, no sólo la primera */
-    //         td = tr[i].getElementsByTagName("td");
-    //         for (j = 0; j < td.length; j++) {
-    //         if (td[j] && td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-    //             visible = true;
-    //         }
-    //         }
-    //         if (visible === true) {
-    //         tr[i].style.display = "";
-    //         } else {
-    //         tr[i].style.display = "none";
-    //         }
-    //     }
-    // }
+        Object.entries(localData).forEach(([key, el]) => {
+            var values = Object.values(el).join(" ");
+            if (values.toUpperCase().indexOf(string) > -1) {
+                filtered[key] = el;
+            }
+        });
+
+        setData(filtered);
+    };
 
     const edad = (fecha) => {
         var hoy = new Date();
@@ -55,6 +47,10 @@ export default function Listado({ setIndex, reFetch }) {
     };
 
     useEffect(() => {
+        filter(search);
+    }, [search]);
+
+    useEffect(() => {
         fetchData();
     }, []);
 
@@ -65,20 +61,8 @@ export default function Listado({ setIndex, reFetch }) {
     return (
         <>
    
-        <div className="col-12" style={{marginTop: '100px'}}>
-            <button 
-                style={{ float: "left" }}
-                type="button"
-                className="btn btn-outline-secondary btn-rounded "
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                id="activadorModal"
-            >
-                <FontAwesomeIcon icon={faSearch} /> BUSQUEDA AVANZADA
-            </button>
-        </div>
-        <br></br>
-        <div className="table-responsive col-12 " style={{marginTop:'50px'}}>
+       
+        <div className="table-responsive col-12 " style={{marginTop:'120px'}}>
             <table className="table table-hover" style={{ width: "100%" }}>
                 <thead>
                     <tr>
@@ -87,8 +71,10 @@ export default function Listado({ setIndex, reFetch }) {
                         <th key={3}>EDAD</th>
                         <th key={4}>DIRECCIÓN</th>
                         <th key={5}>CORREO</th>
-                        <th key={6}>EDITAR</th>
-                        <th key={7}>ELIMINAR</th>
+                        <th key={6}></th>
+                        <th key={7}></th>
+                        <th key={8}></th>
+                        <th key={9}></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -156,6 +142,10 @@ export default function Listado({ setIndex, reFetch }) {
                                         </div>
                                     </div>
                                 </td>
+                                
+                                <td><a href={"mailto:"+e.correo}><button style={{width: '100px'}} className="btn btn-secondary btn-sm"><FontAwesomeIcon icon={faEnvelope} /></button></a></td>
+                                <td><a href={"tel:"+e.telefono}><button style={{width: '100px'}} className="btn btn-success btn-sm"><FontAwesomeIcon icon={faPhone} /></button></a></td>
+
                             </tr>
                         );
                     })}

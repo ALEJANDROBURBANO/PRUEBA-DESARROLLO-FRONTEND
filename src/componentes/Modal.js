@@ -31,15 +31,7 @@ export default function Modal(props) {
                         ></button>
                     </div>
                     <div className="modal-body">{props.children}</div>
-                    {/* <div className="modal-footer">
-                        <button
-                            type="button"
-                            className="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                        >
-                            CERRAR
-                        </button>
-                    </div> */}
+                    
                 </div>
             </div>
         </div>
