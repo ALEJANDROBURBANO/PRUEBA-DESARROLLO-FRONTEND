@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faCity, faEnvelope, faPhone, faCalendar, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { Api } from "../Api";
 
 export default function ContactForm(props) {
+
+    const formStyle = {
+        textAlign: 'left',
+        paddingLeft: '40px',
+        paddingRight: '40px'
+        
+    };
+
     const [data, setData] = useState(undefined);
 
     const [loading, setLoading] = useState(false);
@@ -52,10 +62,12 @@ export default function ContactForm(props) {
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} id="form_contact" style={formStyle}>
+                <h2> {props.index !== undefined ? "Actualizar" : "Registrar"} contacto</h2>
+                <div style={{marginBottom:'30px'}}>Todos los datos identificados con <label className='text-danger'>*</label> son de caracter obligatorio.</div>
                 <div className="mb-3">
                     <label htmlFor="nombre" className="form-label">
-                        Nombre
+                    <FontAwesomeIcon icon={faUser} /> <b> Nombre <span className="text-danger">*</span></b>
                     </label>
                     <input
                         value={data.nombre}
@@ -63,12 +75,12 @@ export default function ContactForm(props) {
                         type="text"
                         className="form-control"
                         id="nombre"
-                        placeholder="name"
+                        placeholder="Nombre"
                     />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="telefono" className="form-label">
-                        Telefono
+                    <FontAwesomeIcon icon={faPhone} /> <b> Teléfono <span className="text-danger">*</span></b>
                     </label>
                     <input
                         value={data.telefono}
@@ -76,12 +88,12 @@ export default function ContactForm(props) {
                         type="text"
                         className="form-control"
                         id="telefono"
-                        placeholder="tlf"
+                        placeholder="312 456 7890"
                     />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="fecha" className="form-label">
-                        Fecha nacimiento
+                    <FontAwesomeIcon icon={faCalendar} /> <b> Fecha de nacimiento <span className="text-danger">*</span></b>
                     </label>
                     <input
                         value={data.fecha}
@@ -94,7 +106,7 @@ export default function ContactForm(props) {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="direccion" className="form-label">
-                        Dirección
+                    <FontAwesomeIcon icon={faCity} /> <b> Dirección <span className="text-danger">*</span></b>
                     </label>
                     <input
                         value={data.direccion}
@@ -102,12 +114,12 @@ export default function ContactForm(props) {
                         type="text"
                         className="form-control"
                         id="direccion"
-                        placeholder="direccion"
+                        placeholder="Calle 1 # 2-3"
                     />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="correo" className="form-label">
-                        Correo electronico
+                    <FontAwesomeIcon icon={faEnvelope} /> <b> Correo electronico <span className="text-danger">*</span></b>
                     </label>
                     <input
                         value={data.correo}
@@ -115,7 +127,7 @@ export default function ContactForm(props) {
                         type="email"
                         className="form-control"
                         id="correo"
-                        placeholder="name@example.com"
+                        placeholder="usuario@mail.com"
                     />
                 </div>
                 {loading ? (
@@ -123,9 +135,16 @@ export default function ContactForm(props) {
                         <span className="visually-hidden">Loading...</span>
                     </div>
                 ) : (
-                    <div className="mb-3">
-                        <button className="btn btn-primary">
-                            {props.index !== undefined ? "Editar" : "Crear"}
+                    <div style={{marginBottom:'120px', marginTop:'50px'}}>
+                        <button style={{ float: "left" }}
+                            type="button"
+                            className="btn btn-outline-primary btn-rounded"
+                            data-bs-dismiss="modal"
+                        >
+                            CANCELAR
+                        </button>
+                        <button className="btn btn-primary btn-rounded" style={{ float: "right" }}>
+                            {props.index !== undefined ? "ACTUALIZAR" : "GUARDAR"}
                         </button>
                     </div>
                 )}

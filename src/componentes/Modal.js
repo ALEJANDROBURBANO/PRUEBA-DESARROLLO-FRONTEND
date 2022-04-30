@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAddressCard } from '@fortawesome/free-solid-svg-icons';
 
 export default function Modal(props) {
     useEffect(() => {
@@ -19,7 +21,7 @@ export default function Modal(props) {
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="exampleModalLabel">
-                            Form
+                        <FontAwesomeIcon icon={faAddressCard} />  Datos de contacto
                         </h5>
                         <button
                             type="button"
@@ -29,15 +31,15 @@ export default function Modal(props) {
                         ></button>
                     </div>
                     <div className="modal-body">{props.children}</div>
-                    <div className="modal-footer">
+                    {/* <div className="modal-footer">
                         <button
                             type="button"
                             className="btn btn-secondary"
                             data-bs-dismiss="modal"
                         >
-                            Close
+                            CERRAR
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
